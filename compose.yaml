@@ -1,0 +1,32 @@
+x-common: &common
+  restart: unless-stopped
+  environment:
+    - EULA=true
+
+services:
+  fantasy_realm:
+    <<: *common
+    container_name: fantasy_realm-serverpack
+    build:
+      context: fantasy_realm
+      dockerfile: v3/Dockerfile
+    image: nafnix/fantasy_realm-serverpack:v3
+    volumes:
+      - ./fantasy_realm/world:/mcserver/world
+    ports:
+      - 25565:25565
+
+  atm9:
+    <<: *common
+    container_name: atm9-serverpack
+    build:
+      context: atm9
+      dockerfile: 0.2.10/Dockerfile
+    image: nafnix/atm9-serverpack:0.2.10
+    environment:
+      - XMX=8G
+      - EULA=true
+    volumes:
+      - ./atm9/world:/mcserver/world
+    ports:
+      - 25566:25565

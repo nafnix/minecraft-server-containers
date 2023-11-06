@@ -4,29 +4,42 @@ x-common: &common
     - EULA=true
 
 services:
-  fantasy_realm:
-    <<: *common
-    container_name: fantasy_realm-serverpack
-    build:
-      context: fantasy_realm
-      dockerfile: v3/Dockerfile
-    image: nafnix/fantasy_realm-serverpack:v3
-    volumes:
-      - ./fantasy_realm/world:/mcserver/world
-    ports:
-      - 25565:25565
+  # fantasy_realm:
+  #   <<: *common
+  #   container_name: fantasy_realm-serverpack
+  #   build:
+  #     context: fantasy_realm
+  #     dockerfile: v3/Dockerfile
+  #   image: nafnix/fantasy_realm-serverpack:v3
+  #   volumes:
+  #     - ./fantasy_realm/world:/mcserver/world
+  #   ports:
+  #     - 25565:25565
 
   atm9:
     <<: *common
     container_name: atm9-serverpack
     build:
       context: atm9
-      dockerfile: 0.2.10/Dockerfile
-    image: nafnix/atm9-serverpack:0.2.10
-    environment:
-      - XMX=8G
-      - EULA=true
+      dockerfile: 0.2.12/Dockerfile
+    image: nafnix/atm9-serverpack:0.2.12
     volumes:
       - ./atm9/world:/mcserver/world
     ports:
       - 25566:25565
+    deploy:
+      resources:
+        limits:
+          memory: 8.5G
+
+  # prominence2:
+  #   <<: *common
+  #   container_name: prominence2-serverpack
+  #   build:
+  #     context: prominence2
+  #     dockerfile: v1.4.1hf/Dockerfile
+  #   image: nafnix/prominence2-serverpack:v1.4.1hf
+  #   volumes:
+  #     - ./prominence2/world:/mcserver/world
+  #   ports:
+  #     - 25566:25565
